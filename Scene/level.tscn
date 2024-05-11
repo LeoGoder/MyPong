@@ -1,0 +1,128 @@
+[gd_scene load_steps=14 format=3 uid="uid://dumjdv0w8qk0y"]
+
+[ext_resource type="PackedScene" uid="uid://bsdurclg1kpfa" path="res://Scene/player.tscn" id="1_6eu7l"]
+[ext_resource type="PackedScene" uid="uid://bc30q7tvleb68" path="res://Scene/player_2.tscn" id="2_iydhg"]
+[ext_resource type="PackedScene" uid="uid://b6swkrr3ut7wt" path="res://Scene/ball.tscn" id="3_phfhx"]
+[ext_resource type="FontFile" uid="uid://byiucb26ltume" path="res://Player/PixelifySans-VariableFont_wght.ttf" id="4_fuxe0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0dgei"]
+size = Vector2(14, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5cwq"]
+size = Vector2(16, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gndy"]
+size = Vector2(1187, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2n6wo"]
+size = Vector2(1178, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6atf4"]
+size = Vector2(117, 657)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htpy4"]
+size = Vector2(306, 683)
+
+[sub_resource type="LabelSettings" id="LabelSettings_go5us"]
+font = ExtResource("4_fuxe0")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_o1mvl"]
+font = ExtResource("4_fuxe0")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_ghatj"]
+font = ExtResource("4_fuxe0")
+font_size = 64
+
+[node name="Level" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -210.0
+offset_top = -55.0
+offset_right = 1503.0
+offset_bottom = 678.0
+color = Color(0, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_6eu7l")]
+position = Vector2(19, 299)
+scale = Vector2(0.997735, 1)
+
+[node name="AreaP1" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AreaP1"]
+position = Vector2(14.0318, -1)
+shape = SubResource("RectangleShape2D_0dgei")
+
+[node name="Player2" parent="." instance=ExtResource("2_iydhg")]
+position = Vector2(1128, 302)
+
+[node name="AreaP2" type="Area2D" parent="Player2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/AreaP2"]
+position = Vector2(-6, 0)
+shape = SubResource("RectangleShape2D_e5cwq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(574, 323)
+
+[node name="AreaHaut" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHaut"]
+position = Vector2(583.5, -8)
+shape = SubResource("RectangleShape2D_0gndy")
+
+[node name="AreaBas" type="Area2D" parent="."]
+position = Vector2(1151, 646)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaBas"]
+position = Vector2(-579, 10)
+shape = SubResource("RectangleShape2D_2n6wo")
+
+[node name="ButPun" type="Area2D" parent="."]
+
+[node name="ButP1" type="CollisionShape2D" parent="ButPun"]
+position = Vector2(-90, 319)
+shape = SubResource("RectangleShape2D_6atf4")
+
+[node name="butp2" type="Area2D" parent="."]
+position = Vector2(1150, -4)
+
+[node name="ButP2" type="CollisionShape2D" parent="butp2"]
+position = Vector2(179, 343)
+shape = SubResource("RectangleShape2D_htpy4")
+
+[node name="Ball" parent="." instance=ExtResource("3_phfhx")]
+position = Vector2(576, 268)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 554.0
+offset_top = 23.0
+offset_right = 594.0
+offset_bottom = 63.0
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Score_P1" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+label_settings = SubResource("LabelSettings_go5us")
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = ":"
+label_settings = SubResource("LabelSettings_o1mvl")
+
+[node name="Score_P2" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_ghatj")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Player/AreaP1" to="Ball" method="_on_area_p_1_body_entered"]
+[connection signal="body_entered" from="Player2/AreaP2" to="Ball" method="_on_area_p_2_body_entered"]
+[connection signal="body_entered" from="AreaHaut" to="Ball" method="_on_area_haut_body_entered"]
+[connection signal="body_entered" from="AreaBas" to="Ball" method="_on_area_bas_body_entered"]
+[connection signal="body_entered" from="ButPun" to="Ball" method="_on_but_pun_body_entered"]
+[connection signal="body_entered" from="butp2" to="Ball" method="_on_butp_2_body_entered"]
+[connection signal="timeout" from="Timer" to="Ball" method="_on_timer_timeout"]

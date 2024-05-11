@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsdurclg1kpfa"]
+
+[ext_resource type="Texture2D" uid="uid://b3ir261ugrhpy" path="res://Aseprite/Save/Sprite-0002.png" id="1_ep32s"]
+[ext_resource type="Script" path="res://Script/player.gd" id="1_fmbkg"]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_fmbkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(145, 0)
+scale = Vector2(10, 9.968)
+texture = ExtResource("1_ep32s")
